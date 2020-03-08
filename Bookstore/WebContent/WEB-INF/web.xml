@@ -11,9 +11,20 @@
 			</init-param>
 			<load-on-startup>1</load-on-startup>
 		</servlet>
+		<servlet>
+			<description>
+			</description>
+			<display-name>BaseController</display-name>
+			<servlet-name>BaseController</servlet-name>
+			<servlet-class>com.gcu.BaseController</servlet-class>
+		</servlet>
 		<servlet-mapping>
 			<servlet-name>SpringWeb</servlet-name>
 			<url-pattern>/</url-pattern>
+		</servlet-mapping>
+		<servlet-mapping>
+			<servlet-name>BaseController</servlet-name>
+			<url-pattern>/BaseController</url-pattern>
 		</servlet-mapping>
 		<context-param>
 			<param-name>contextConfigLocation</param-name>

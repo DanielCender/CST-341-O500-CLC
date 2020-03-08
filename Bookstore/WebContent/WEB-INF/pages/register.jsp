@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-    <title>Login</title>
+    <title>Register</title>
     <style>
 
         body {
@@ -39,19 +39,33 @@
 
     <header>
 
-        Welcome to the Login Page <br><a href="Register.html">Register</a> <a href="Home.html">Home</a> |<br>
-
+        Welcome to the Regsitration Page <br><a href="/Bookstore/loginUser">Login</a> <a href="/Bookstore/">Home</a>|<br>
+      
     </header>
+<form:form method="POST" action="registerUser" modelAttribute ="UserModel">
 
-	<form:form method="POST" action="loginUser" modelAttribute ="loginCModel">
     <center>
-        <form:label path="email">Email: </form:label> 
-         <form:input path="email"></form:input><br />
-        <form:label path="password">Password: </form:label> 
-        <br/>
-          <form:input path="password"></form:input> 
-          <br/>
-          <input type="submit" value="Submit"/>
+        <form:label path="firstName">First Name: </form:label>
+         <form:input path="firstName"></form:input> 
+        <br />
+         <form:label path="middleInitial">Middle Initial: </form:label>
+          <form:input path="middleInitial"></form:input> 
+        <br />
+        <form:label path="lastName">Last Name: </form:label> 
+         <form:input path="lastName"></form:input> 
+        <br />
+        <form:label path="Email">Email: </form:label>
+         <form:input path="Email"></form:input> 
+        <br />
+       
+ 
+        <form:label path="username">Username: </form:label>
+         <form:input path="username"></form:input> 
+        <br />
+        <form:label path="password">Password: </form:label>
+         <form:input path="password"></form:input> 
+        
+        <br />
     </center>
 </form:form>
     <footer>

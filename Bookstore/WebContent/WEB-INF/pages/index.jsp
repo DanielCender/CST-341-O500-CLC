@@ -39,7 +39,7 @@
   
     <header>
 
-        Welcome to the Bookstore <br><a href="Login.jsp">Login</a> | <a href="Register.jsp">Register</a> |<br>
+        Welcome to the Bookstore <br><a href="/Bookstore/loginUser">Login</a> | <a href="/Bookstore/registerUser">Register</a> |<br>
         <center>Books | Checkout</center>
     </header>
 
