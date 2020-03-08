@@ -13,7 +13,7 @@ public class DataAccessObject {
 
 	private Connection conn = null;
 	
-	public Boolean getConnection() throws SQLException
+	private Boolean getConnection() throws SQLException
 	{
 		try
 		{
@@ -54,6 +54,24 @@ public class DataAccessObject {
 		//otherwise return false
 		this.conn.close();
 		return false;
+	}
+	
+	public Boolean isAvailable(UserModel user) throws SQLException {
+		this.getConnection();
+		
+		String checkExists = "SELECT Email from dbo.Users WHERE Email = '" + user.getEmail() + "';";
+		
+		//create SQL statement
+		Statement stmt = this.conn.createStatement();
+				
+		//execute update using sql string and save result
+		int rowsEffected = stmt.executeUpdate(checkExists);
+				
+		Boolean isAvailable = rowsEffected == 0;
+		
+		this.conn.close();
+				
+		return isAvailable;
 	}
 	
 	public Boolean Register(UserModel user) throws SQLException

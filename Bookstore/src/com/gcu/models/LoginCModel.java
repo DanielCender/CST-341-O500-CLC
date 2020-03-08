@@ -13,6 +13,11 @@ public class LoginCModel {
 	@Size(min=6,max=20,message="Password must be between 6 and 20 chars")
 	private String password;
 	
+	@NotNull
+	@Size(min=6,max=20,message="Password must be between 6 and 20 chars")
+	private String passwordConfirmation;
+	
+
 	public LoginCModel(String email, String password) {
 		super();
 		this.email = email;
@@ -35,5 +40,12 @@ public class LoginCModel {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getPasswordConfirmation() {
+		return passwordConfirmation;
+	}
+
+	public void setPasswordConfirmation(String passwordConfirmation) {
+		this.passwordConfirmation = passwordConfirmation;
 	}
 }

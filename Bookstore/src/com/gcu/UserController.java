@@ -1,6 +1,8 @@
 package com.gcu;
 
-import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
+
+//import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -12,73 +14,92 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gcu.models.UserModel;
 import com.gcu.models.LoginCModel;
+import com.gcu.Service.DataAccessObject;
 
 @Controller
 public class UserController {
 	
 	@RequestMapping(path = "/registerUser", method=RequestMethod.GET)
-	public ModelAndView registerUser(@ModelAttribute("user")UserModel user, BindingResult resultUser, @ModelAttribute("login")LoginCredModel login, BindingResult resultLogin, RedirectAttributes redirect) {
+	public ModelAndView registerUser(@ModelAttribute("user")UserModel user, BindingResult resultUser, @ModelAttribute("login")LoginCModel login, BindingResult resultLogin, RedirectAttributes redirect) {
 		
 		ModelAndView mav = new ModelAndView();
+		DataAccessObject dataService = new DataAccessObject();
 		
 		//Checks to see if there are errors.
 		if(resultUser.hasErrors()) {
-			displayRegistrationPage(mav);
 			mav.setViewName("register");
 			mav.addObject("user", user);
 			mav.addObject("login", new LoginCModel());
 			return mav;
 		}
 		
-		if(dataService.doesUserExist(user)) {
-			resultUser.rejectValue("userExists","error.user", "This emial is being used by another account, please choose another email.");
-			user.setEmail("");
-			displayRegistrationPage(mav);
-			mav.addObject("user", user);
-			mav.addObject("login", new LoginCModel());
-			mav.setViewName("register");
-			return mav;
-		}
-		else {
-			if(user.getPassword().equals(user.getPasswordConfirmation())) {
-				dataService.addUser(user);
-				login.setEmail(user.getEmail());
-				mav.setViewName("redirect:/");
+		try {
+			if(!dataService.isAvailable(user)) {
+				resultUser.rejectValue("userExists","error.user", "This emial is being used by another account, please choose another email.");
+				user.setEmail("");
+				mav.addObject("user", user);
+				mav.addObject("login", new LoginCModel());
+				mav.setViewName("register");
 				return mav;
 			}
 			else {
-				resultUser.rejectValue("passwordConfirmation", "error.user", "The passwords do not match.");
-				displayRegistrationPage(mav);
-				mav.addObject("user", user);
-				mav.addObject("login", login);
-				mav.setViewName("registration");
+				if(user.getPassword().equals(login.getPasswordConfirmation())) {
+					dataService.Register(user);
+					login.setEmail(user.getEmail());
+					mav.setViewName("redirect:/");
+					return mav;
+				}
+				else {
+					resultUser.rejectValue("passwordConfirmation", "error.user", "The passwords do not match.");
+					// Display registration page again
+					mav.addObject("user", user);
+					mav.addObject("login", login);
+					mav.setViewName("registration");
+				}
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		
+		// Return to /register view by default
+		mav.setViewName("register");
+		mav.addObject("user", user);
+		mav.addObject("login", new LoginCModel());
+		return mav;
 	}
 	
 	@RequestMapping(path = "/loginUser", method=RequestMethod.GET) 
 	public ModelAndView loginUser(@ModelAttribute("login")LoginCModel login, BindingResult resultLogin, @ModelAttribute("user")UserModel user, BindingResult resultUser) {
 		
 		ModelAndView mav = new ModelAndView();
+		DataAccessObject dataService = new DataAccessObject();
+		Boolean loggedIn = false;
+		
+//		HttpSession session = res.getSession();
 		mav.addObject("user", new UserModel());
 		
 		//Checks to see if there are errors.
 		if(resultUser.hasErrors()) {
-			displayLoginPage(mav);
 			mav.setViewName("login");
 			mav.addObject("login", login);
 			return mav;
 		}
 		
-		UserModel loggedIn = dataService.loginUserWithModel(new UserModel("", "", login.getEmail(), login.getPassword()));
 		
-		if(loggedIn.getID() != -1) {
-			
-			HttpSession.setAttribute("user", loggedIn);
+		try {
+			loggedIn = dataService.Login(login.getEmail(), login.getPassword());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if(loggedIn) {
+//			session.setAttribute("user", loggedIn);
 			mav.setViewName("redirect:/ main");
 			return mav;			
 		}
+		
+		mav.setViewName("login");
+		mav.addObject("login", login);
+		return mav;
 	}
 
 }
