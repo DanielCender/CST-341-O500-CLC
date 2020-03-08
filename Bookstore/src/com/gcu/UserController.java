@@ -57,7 +57,7 @@ public class UserController {
 					mav.setViewName("registration");
 				}
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		// Return to /register view by default
@@ -69,7 +69,7 @@ public class UserController {
 	
 	@RequestMapping(path = "/loginUser", method=RequestMethod.GET) 
 	public ModelAndView loginUser(@ModelAttribute("login")LoginCModel login, BindingResult resultLogin, @ModelAttribute("user")UserModel user, BindingResult resultUser) {
-		
+		System.out.println("Got to here");
 		ModelAndView mav = new ModelAndView();
 		DataAccessObject dataService = new DataAccessObject();
 		Boolean loggedIn = false;
@@ -87,7 +87,7 @@ public class UserController {
 		
 		try {
 			loggedIn = dataService.Login(login.getEmail(), login.getPassword());
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		

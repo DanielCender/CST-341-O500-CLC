@@ -13,14 +13,25 @@ public class DataAccessObject {
 
 	private Connection conn = null;
 	
-	private Boolean getConnection() throws SQLException
+	private Boolean getConnection() throws SQLException, ClassNotFoundException
 	{
+		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		try
 		{
-			String dbUrl = "jdbc:sqlserver://localhost";
-			conn = DriverManager.getConnection(dbUrl, "LAPTOP-9IVBT4NR/David Pratt Jr", "");
 			
-			if (conn != null)
+//			"jdbc:sqlserver://danielcender", "sa",
+//            "passw0rd1!"
+			
+//			String dbUrl = "jdbc:sqlserver://localhost";
+//			conn = DriverManager.getConnection("jdbc:sqlserver://danielcender", "sa", "passw0rd1!");
+			
+			String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=Bookstore;user=sa;password=Passw0rd1!;"; 
+			
+			this.conn = DriverManager.getConnection(connectionUrl);  
+//			String dbUrl = "jdbc:sqlserver://localhost";
+//			conn = DriverManager.getConnection(dbUrl, "LAPTOP-9IVBT4NR/David Pratt Jr", "");
+			
+			if (this.conn != null)
 				return true;
 			else return false;
 		} catch (SQLException e)
@@ -30,7 +41,7 @@ public class DataAccessObject {
 		}
 	}
 	
-	public Boolean Login(String Username, String Password) throws SQLException
+	public Boolean Login(String Username, String Password) throws SQLException, ClassNotFoundException
 	{
 		//establish connection to db
 		this.getConnection();
@@ -56,7 +67,7 @@ public class DataAccessObject {
 		return false;
 	}
 	
-	public Boolean isAvailable(UserModel user) throws SQLException {
+	public Boolean isAvailable(UserModel user) throws SQLException, ClassNotFoundException {
 		this.getConnection();
 		
 		String checkExists = "SELECT Email from dbo.Users WHERE Email = '" + user.getEmail() + "';";
@@ -74,7 +85,7 @@ public class DataAccessObject {
 		return isAvailable;
 	}
 	
-	public Boolean Register(UserModel user) throws SQLException
+	public Boolean Register(UserModel user) throws SQLException, ClassNotFoundException
 	{
 		//establish connection to db
 		this.getConnection();
