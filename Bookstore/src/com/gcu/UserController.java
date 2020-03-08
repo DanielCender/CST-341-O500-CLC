@@ -1,4 +1,4 @@
-package com.app;
+package com.gcu;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.app.model.UserModel;
-import com.app.model.LoginCModel;
+import com.gcu.models.UserModel;
+import com.gcu.models.LoginCModel;
 
 @Controller
 public class UserController {
