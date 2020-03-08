@@ -42,7 +42,7 @@
         Welcome to the Regsitration Page <br><a href="/Bookstore/loginUser">Login</a> <a href="/Bookstore/">Home</a>|<br>
       
     </header>
-<form:form method="POST" action="registerUser" modelAttribute ="UserModel">
+<form:form method="POST" action="registerUser" modelAttribute ="userModel">
 
     <center>
         <form:label path="firstName">First Name: </form:label>

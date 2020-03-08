@@ -19,7 +19,14 @@ import com.gcu.Service.DataAccessObject;
 @Controller
 public class UserController {
 	
-	@RequestMapping(path = "/registerUser", method=RequestMethod.GET)
+	@RequestMapping(path="/registerUser", method=RequestMethod.GET)
+	public ModelAndView registerUser() {
+		// TODO - Add checks to local session for already logged-in user.
+		// TODO - If current user session is found, redirect user to authed home view or profile
+		return new ModelAndView("register", "userModel", new UserModel());
+	}
+
+	@RequestMapping(path = "/registerUser", method=RequestMethod.POST)
 	public ModelAndView registerUser(@ModelAttribute("user")UserModel user, BindingResult resultUser, @ModelAttribute("login")LoginCModel login, BindingResult resultLogin, RedirectAttributes redirect) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -67,7 +74,14 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping(path = "/loginUser", method=RequestMethod.GET) 
+	@RequestMapping(path="/loginUser", method=RequestMethod.GET)
+	public ModelAndView loginUser() {
+		// TODO - Add checks to local session for already logged-in user.
+		// TODO - If current user session is found, redirect user to authed home view or profile
+		return new ModelAndView("login", "loginCModel", new LoginCModel());
+	}
+	
+	@RequestMapping(path = "/loginUser", method=RequestMethod.POST) 
 	public ModelAndView loginUser(@ModelAttribute("login")LoginCModel login, BindingResult resultLogin, @ModelAttribute("user")UserModel user, BindingResult resultUser) {
 		System.out.println("Got to here");
 		ModelAndView mav = new ModelAndView();
