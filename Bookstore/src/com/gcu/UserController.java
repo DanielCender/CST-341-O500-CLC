@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gcu.models.UserModel;
+import com.gcu.models.RegisterUserModel;
 import com.gcu.models.LoginCModel;
 import com.gcu.Service.DataAccessObject;
 
@@ -23,11 +24,11 @@ public class UserController {
 	public ModelAndView registerUser() {
 		// TODO - Add checks to local session for already logged-in user.
 		// TODO - If current user session is found, redirect user to authed home view or profile
-		return new ModelAndView("register", "userModel", new UserModel());
+		return new ModelAndView("register", "userRegistration", new RegisterUserModel());
 	}
 
 	@RequestMapping(path = "/registerUser", method=RequestMethod.POST)
-	public ModelAndView registerUser(@ModelAttribute("user")UserModel user, BindingResult resultUser, @ModelAttribute("login")LoginCModel login, BindingResult resultLogin, RedirectAttributes redirect) {
+	public ModelAndView registerUser(@ModelAttribute("userRegistration")RegisterUserModel registration, BindingResult resultUser, RedirectAttributes redirect) {
 		
 		ModelAndView mav = new ModelAndView();
 		DataAccessObject dataService = new DataAccessObject();
@@ -35,33 +36,32 @@ public class UserController {
 		//Checks to see if there are errors.
 		if(resultUser.hasErrors()) {
 			mav.setViewName("register");
-			mav.addObject("user", user);
-			mav.addObject("login", new LoginCModel());
+			mav.addObject("userRegistration", registration);
 			return mav;
 		}
 		
 		try {
-			if(!dataService.isAvailable(user)) {
-				resultUser.rejectValue("userExists","error.user", "This emial is being used by another account, please choose another email.");
-				user.setEmail("");
-				mav.addObject("user", user);
-				mav.addObject("login", new LoginCModel());
+			if(!dataService.isAvailable(registration)) {
+				resultUser.rejectValue("email","error.user", "This email is being used by another account, please choose another email.");
+				registration.setEmail("");
+				registration.setPasswordConfirmation("");
+				mav.addObject("userRegistration", registration);
 				mav.setViewName("register");
 				return mav;
 			}
 			else {
-				if(user.getPassword().equals(login.getPasswordConfirmation())) {
-					dataService.Register(user);
-					login.setEmail(user.getEmail());
-					mav.setViewName("redirect:/");
+				if(registration.getPassword().equals(registration.getPasswordConfirmation())) {
+					dataService.Register(registration);
+					mav.setViewName("redirect:/loginUser");
 					return mav;
 				}
 				else {
 					resultUser.rejectValue("passwordConfirmation", "error.user", "The passwords do not match.");
 					// Display registration page again
-					mav.addObject("user", user);
-					mav.addObject("login", login);
+					registration.setPasswordConfirmation("");
 					mav.setViewName("registration");
+					mav.addObject("userRegistration", registration);
+					return mav;
 				}
 			}
 		} catch (SQLException | ClassNotFoundException e) {
@@ -69,8 +69,7 @@ public class UserController {
 		}
 		// Return to /register view by default
 		mav.setViewName("register");
-		mav.addObject("user", user);
-		mav.addObject("login", new LoginCModel());
+		mav.addObject("userRegistration", registration);
 		return mav;
 	}
 	
@@ -107,7 +106,7 @@ public class UserController {
 		
 		if(loggedIn) {
 //			session.setAttribute("user", loggedIn);
-			mav.setViewName("redirect:/ main");
+			mav.setViewName("redirect:/browse");
 			return mav;			
 		}
 		

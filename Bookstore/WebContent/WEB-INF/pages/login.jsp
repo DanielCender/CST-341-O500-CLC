@@ -18,7 +18,7 @@
             background-color: darkgray;
             padding: 30px;
             text-align: center;
-            font-size: 35px;
+            font-size: 2rem;
             color: white;
         }
 
@@ -33,13 +33,17 @@
             text-align: center;
             color: white;
         }
+        
+        .error {
+        	color: red;
+        }
     </style>
 </head>
 <body>
 
     <header>
 
-        Welcome to the Login Page <br><a href="/Bookstore/registerUser">Register</a> <a href="/Bookstore/">Home</a> |<br>
+        Welcome to the Login Page <br><a href="/Bookstore/registerUser">Register</a> | <a href="/Bookstore/">Home</a><br>
 
     </header>
 
@@ -51,6 +55,8 @@
         <br/>
           <form:input path="password"></form:input> 
           <br/>
+          <form:errors path="*" cssClass="error"/>
+          <br />
           <input type="submit" value="Submit"/>
     </center>
 </form:form>

@@ -18,7 +18,7 @@
             background-color: darkgray;
             padding: 30px;
             text-align: center;
-            font-size: 35px;
+            font-size: 2rem;
             color: white;
         }
 
@@ -33,6 +33,10 @@
             text-align: center;
             color: white;
         }
+        
+        .error {
+        	color: red;
+        }
     </style>
 </head>
 <body>
@@ -42,7 +46,7 @@
         Welcome to the Regsitration Page <br><a href="/Bookstore/loginUser">Login</a> <a href="/Bookstore/">Home</a>|<br>
       
     </header>
-<form:form method="POST" action="registerUser" modelAttribute ="userModel">
+<form:form method="POST" action="registerUser" modelAttribute ="userRegistration">
 
     <center>
         <form:label path="firstName">First Name: </form:label>
@@ -54,8 +58,8 @@
         <form:label path="lastName">Last Name: </form:label> 
          <form:input path="lastName"></form:input> 
         <br />
-        <form:label path="Email">Email: </form:label>
-         <form:input path="Email"></form:input> 
+        <form:label path="email">Email: </form:label>
+         <form:input path="email"></form:input> 
         <br />
        
  
@@ -64,8 +68,14 @@
         <br />
         <form:label path="password">Password: </form:label>
          <form:input path="password"></form:input> 
-        
         <br />
+        <form:label path="passwordConfirmation">Password: </form:label>
+         <form:input path="passwordConfirmation"></form:input> 
+        <br />
+        
+        <form:errors path="*" cssClass="error"/>
+        <br />
+        <input type="submit" value="Submit" />
     </center>
 </form:form>
     <footer>

@@ -2,6 +2,7 @@ package com.gcu.Service;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,18 +19,10 @@ public class DataAccessObject {
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		try
 		{
-			
-//			"jdbc:sqlserver://danielcender", "sa",
-//            "passw0rd1!"
-			
-//			String dbUrl = "jdbc:sqlserver://localhost";
-//			conn = DriverManager.getConnection("jdbc:sqlserver://danielcender", "sa", "passw0rd1!");
-			
+			// TODO - Change String below to come from configuration file
 			String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=Bookstore;user=sa;password=Passw0rd1!;"; 
 			
-			this.conn = DriverManager.getConnection(connectionUrl);  
-//			String dbUrl = "jdbc:sqlserver://localhost";
-//			conn = DriverManager.getConnection(dbUrl, "LAPTOP-9IVBT4NR/David Pratt Jr", "");
+			this.conn = DriverManager.getConnection(connectionUrl);
 			
 			if (this.conn != null)
 				return true;
@@ -70,14 +63,19 @@ public class DataAccessObject {
 	public Boolean isAvailable(UserModel user) throws SQLException, ClassNotFoundException {
 		this.getConnection();
 		
-		String checkExists = "SELECT Email from dbo.Users WHERE Email = '" + user.getEmail() + "';";
+		// '" + user.getEmail() + "'
+		String checkExists = "SELECT COUNT(*) AS [Count] from [dbo].[Users] WHERE [Email] = '" + user.getEmail() + "';";
 		
+		System.out.println("To be executed: " + checkExists);
 		//create SQL statement
 		Statement stmt = this.conn.createStatement();
-				
-		//execute update using sql string and save result
-		int rowsEffected = stmt.executeUpdate(checkExists);
-				
+		ResultSet rs = stmt.executeQuery(checkExists);
+			
+		rs.next(); // move to only row
+		Integer rowsEffected = rs.getInt("Count");
+		
+		System.out.println("Rows found: " + rowsEffected);
+		
 		Boolean isAvailable = rowsEffected == 0;
 		
 		this.conn.close();
@@ -91,13 +89,13 @@ public class DataAccessObject {
 		this.getConnection();
 		
 		//SQL string to add user to users table
-		String InsertUser = "INSERT INTO dbo.Users (FirstName, MiddleInitial, LastName, Username, Password, Email) Values ('" 
+		String InsertUser = "INSERT INTO [dbo].[Users] (FirstName, MiddleInitial, LastName, Username, Password, Email) Values ('" 
 				+ user.getFirstName() + "', '"
 				+ user.getMiddleInitial() + "', '"
 				+ user.getLastName() + "', '" 
 				+ user.getUsername() + "', '"
 				+ user.getPassword() + "', '"
-				+ user.getEmail() + "';";
+				+ user.getEmail() + "');";
 		
 		//create SQL statement
 		Statement stmt = this.conn.createStatement();

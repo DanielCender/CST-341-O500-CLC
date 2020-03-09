@@ -5,7 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 
-    <title>Home</title>
+    <title>Browse</title>
     <style>
 
         body {
@@ -43,7 +43,8 @@
         <center>Books | Checkout</center>
     </header>
 
-    body portion
+    <h4>-- Book Browsing Below --</h4>
+    <blockquote>TODO</blockquote>
 
     <footer>
         Follow us on Social Media | &copy; since 2020 | Published in GCU
