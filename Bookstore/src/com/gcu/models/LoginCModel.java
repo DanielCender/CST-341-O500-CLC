@@ -5,12 +5,10 @@ import javax.validation.constraints.Size;
 
 public class LoginCModel {
 	
-	@NotNull
-	@Size(min=4,max=200,message="Email must be between 4 and 200 chars")
+	@NotNull @Size(min=4,max=200,message="Email must be between 4 and 200 chars")
 	private String email;
 	
-	@NotNull
-	@Size(min=6,max=20,message="Password must be between 6 and 20 chars")
+	@NotNull @Size(min=6,max=20,message="Password must be between 6 and 20 chars")
 	private String password;
 
 	public LoginCModel(String email, String password) {

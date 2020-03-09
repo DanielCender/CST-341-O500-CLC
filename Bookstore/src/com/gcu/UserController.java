@@ -2,6 +2,9 @@ package com.gcu;
 
 import java.sql.SQLException;
 
+import javax.validation.Valid;
+
+// TODO - Figure out persistent user session storage
 //import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -10,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gcu.models.UserModel;
 import com.gcu.models.RegisterUserModel;
@@ -28,8 +30,7 @@ public class UserController {
 	}
 
 	@RequestMapping(path = "/registerUser", method=RequestMethod.POST)
-	public ModelAndView registerUser(@ModelAttribute("userRegistration")RegisterUserModel registration, BindingResult resultUser, RedirectAttributes redirect) {
-		
+	public ModelAndView registerUser(@ModelAttribute("userRegistration") @Valid RegisterUserModel registration, BindingResult resultUser) {
 		ModelAndView mav = new ModelAndView();
 		DataAccessObject dataService = new DataAccessObject();
 		
@@ -81,17 +82,16 @@ public class UserController {
 	}
 	
 	@RequestMapping(path = "/loginUser", method=RequestMethod.POST) 
-	public ModelAndView loginUser(@ModelAttribute("login")LoginCModel login, BindingResult resultLogin, @ModelAttribute("user")UserModel user, BindingResult resultUser) {
+	public ModelAndView loginUser(@ModelAttribute("loginCModel") @Valid LoginCModel login, BindingResult resultLogin) {
 		System.out.println("Got to here");
 		ModelAndView mav = new ModelAndView();
 		DataAccessObject dataService = new DataAccessObject();
 		Boolean loggedIn = false;
 		
-//		HttpSession session = res.getSession();
 		mav.addObject("user", new UserModel());
 		
 		//Checks to see if there are errors.
-		if(resultUser.hasErrors()) {
+		if(resultLogin.hasErrors()) {
 			mav.setViewName("login");
 			mav.addObject("login", login);
 			return mav;
@@ -103,13 +103,14 @@ public class UserController {
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		System.out.println("Logged in status: " + loggedIn);
 		
 		if(loggedIn) {
-//			session.setAttribute("user", loggedIn);
 			mav.setViewName("redirect:/browse");
 			return mav;			
 		}
-		
+		resultLogin.rejectValue("email", "error.user", "Invalid email and password combination, please try again.");
+//		resultLogin.rejectValue("passwordConfirmation", "error.user", "The passwords do not match.");
 		mav.setViewName("login");
 		mav.addObject("login", login);
 		return mav;

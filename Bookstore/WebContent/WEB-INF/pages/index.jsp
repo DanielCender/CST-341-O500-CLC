@@ -39,12 +39,17 @@
   
     <header>
 
-        Welcome to the Bookstore <br><a href="/Bookstore/loginUser">Login</a> | <a href="/Bookstore/registerUser">Register</a> |<br>
-        <center>Books | Checkout</center>
+        Welcome to the Bookstore 
+        <br />
+        <a href="/Bookstore/loginUser">Login</a> | <a href="/Bookstore/registerUser">Register</a>
+        <br />
     </header>
 
-    body portion
-
+	<center>
+    <h4>-- Main Page Body Portion --</h4>
+    <blockquote>TODO - Maybe some information about the online bookstore</blockquote>
+	</center>
+	
     <footer>
         Follow us on Social Media | &copy; since 2020 | Published in GCU
     </footer>

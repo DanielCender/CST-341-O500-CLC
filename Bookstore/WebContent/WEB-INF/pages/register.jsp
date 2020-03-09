@@ -51,6 +51,7 @@
     <center>
         <form:label path="firstName">First Name: </form:label>
          <form:input path="firstName"></form:input> 
+        <form:errors path="firstName" />
         <br />
          <form:label path="middleInitial">Middle Initial: </form:label>
           <form:input path="middleInitial"></form:input> 

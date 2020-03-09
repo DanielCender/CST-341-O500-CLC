@@ -10,7 +10,7 @@
 
         body {
         font-family: Arial, Helvetica, sans-serif;
-        color: white;
+        color: black;
         background-color: lightgray;
         }
 
@@ -39,13 +39,14 @@
   
     <header>
 
-        Welcome to the Bookstore <br><a href="/Bookstore/loginUser">Login</a> | <a href="/Bookstore/registerUser">Register</a> |<br>
-        <center>Books | Checkout</center>
+        | Welcome to the Bookstore |
+        <br />
+        <center>Books | <a href="#">Checkout</a> | <a href="/Bookstore/">Logout</a></center>
     </header>
-
+	<center>
     <h4>-- Book Browsing Below --</h4>
     <blockquote>TODO</blockquote>
-
+	</center>
     <footer>
         Follow us on Social Media | &copy; since 2020 | Published in GCU
     </footer>

@@ -50,10 +50,10 @@
 	<form:form method="POST" action="loginUser" modelAttribute ="loginCModel">
     <center>
         <form:label path="email">Email: </form:label> 
-         <form:input path="email"></form:input><br />
+        <form:input path="email"></form:input>
+        <br />
         <form:label path="password">Password: </form:label> 
-        <br/>
-          <form:input path="password"></form:input> 
+         <form:input path="password"></form:input> 
           <br/>
           <form:errors path="*" cssClass="error"/>
           <br />

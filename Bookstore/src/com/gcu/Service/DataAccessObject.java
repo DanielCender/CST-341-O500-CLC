@@ -34,30 +34,30 @@ public class DataAccessObject {
 		}
 	}
 	
-	public Boolean Login(String Username, String Password) throws SQLException, ClassNotFoundException
+	public Boolean Login(String Email, String Password) throws SQLException, ClassNotFoundException
 	{
 		//establish connection to db
 		this.getConnection();
 		
-		//create string for logging in using username and password
-		String LoginString = "SELECT * FROM Users WHERE Username = '" + Username + "' AND Password = '" + Password + "';";
+		//create string for logging in using email and password
+		String LoginString = "SELECT COUNT(*) AS [Count] FROM Users WHERE Email = '" + Email + "' AND Password = '" + Password + "';";
 		
 		//create statement
-		Statement stmt = conn.createStatement();
+		Statement stmt = this.conn.createStatement();
 		
 		//execute statement with query string and save that query to result set
-		ResultSet result = stmt.executeQuery(LoginString);
+		ResultSet rs = stmt.executeQuery(LoginString);
 		
-		//if result has an item within it; return true;
-		if (result.next())
-		{
-			this.conn.close();
-			return true;
-		}
+		rs.next(); // move to only row
+		Integer rowsEffected = rs.getInt("Count");
 		
-		//otherwise return false
+		System.out.println("Rows found: " + rowsEffected);
+		
+		Boolean isAuthed = rowsEffected == 1;
+		
 		this.conn.close();
-		return false;
+				
+		return isAuthed;
 	}
 	
 	public Boolean isAvailable(UserModel user) throws SQLException, ClassNotFoundException {
