@@ -20,6 +20,7 @@ import com.gcu.models.LoginCModel;
 import com.gcu.Service.DataAccessObject;
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
 	
 	@RequestMapping(path="/registerUser", method=RequestMethod.GET)
