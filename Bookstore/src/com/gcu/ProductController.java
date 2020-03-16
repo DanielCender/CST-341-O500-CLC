@@ -16,16 +16,17 @@ import com.gcu.Service.interfaces.BookServiceInterface;
 import com.gcu.models.BookModel;
 
 @Controller
+@RequestMapping("/products")
 public class ProductController {
 	
-BookServiceInterface service;
+	BookServiceInterface service;
 	
 	@Autowired
 	public void setBookServiceInterface(BookServiceInterface i) {
 		service = i;
 	}
 	
-	@RequestMapping(path = "/browse", method=RequestMethod.GET)
+	@RequestMapping(path = "/add", method=RequestMethod.GET)
 	public ModelAndView displayBooks() {
 		return new ModelAndView("addBook", "book", new BookModel());
 	}

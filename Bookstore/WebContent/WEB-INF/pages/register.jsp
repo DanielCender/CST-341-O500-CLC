@@ -4,83 +4,94 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="ISO-8859-1">
-    <title>Register</title>
-    <style>
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            color: white;
-            background-color: lightgray;
-        }
-
-        header {
-            background-color: darkgray;
-            padding: 30px;
-            text-align: center;
-            font-size: 2rem;
-            color: white;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        /* Style the footer */
-        footer {
-            background-color: #777;
-            padding: 10px;
-            text-align: center;
-            color: white;
-        }
-        
-        .error {
-        	color: red;
-        }
-    </style>
+	<style>		
+		form {
+				width: 30%;
+				height: 50%;
+				padding-top: 10px;
+				margin: 40px 35%;	
+			}
+	</style>
 </head>
-<body>
+	<body>
+		<%@include file="header.html" %>
+		<form:form method="POST" action="registerUser" modelAttribute ="userRegistration">
 
-    <header>
-
-        Welcome to the Regsitration Page <br><a href="/Bookstore/loginUser">Login</a> <a href="/Bookstore/">Home</a>|<br>
-      
-    </header>
-<form:form method="POST" action="registerUser" modelAttribute ="userRegistration">
-
-    <center>
-        <form:label path="firstName">First Name: </form:label>
-         <form:input path="firstName"></form:input> 
-        <form:errors path="firstName" />
-        <br />
-         <form:label path="middleInitial">Middle Initial: </form:label>
-          <form:input path="middleInitial"></form:input> 
-        <br />
-        <form:label path="lastName">Last Name: </form:label> 
-         <form:input path="lastName"></form:input> 
-        <br />
-        <form:label path="email">Email: </form:label>
-         <form:input path="email"></form:input> 
-        <br />
-       
- 
-        <form:label path="username">Username: </form:label>
-         <form:input path="username"></form:input> 
-        <br />
-        <form:label path="password">Password: </form:label>
-         <form:input path="password"></form:input> 
-        <br />
-        <form:label path="passwordConfirmation">Password: </form:label>
-         <form:input path="passwordConfirmation"></form:input> 
-        <br />
-        
-        <form:errors path="*" cssClass="error"/>
-        <br />
-        <input type="submit" value="Submit" />
-    </center>
-</form:form>
-    <footer>
-        Follow us on Social Media | &copy; since 2020 | Published in GCU
-    </footer>
-</body>
+	    	<div class="form-group">
+		        <form:label path="firstName">First Name: </form:label>
+		        <form:input class="form-control" path="firstName"></form:input> 
+		        <div class="invalid-feedback">
+			        <form:errors path="firstName" />
+			    </div>
+		    </div>
+	        
+	        <br />
+	        
+	        <div class="form-group">
+		        <form:label path="middleInitial">Middle Initial: </form:label>
+	        	<form:input class="form-control" path="middleInitial"></form:input> 
+	        	<div class="invalid-feedback">
+	        		<form:errors path="middleInitial" />
+	        	</div>
+	        </div>
+	        
+	        <br />
+	        
+	        <div class="form-group">
+		        <form:label path="lastName">Last Name: </form:label> 
+		        <form:input class="form-control" path="lastName"></form:input> 
+		        <div class="invalid-feedback">
+		        	<form:errors path="lastName" />
+		        </div>
+	        </div>
+	        
+	        <br />
+	        
+	        <div class="form-group">
+		        <form:label path="email">Email: </form:label>
+		        <form:input class="form-control" path="email"></form:input> 
+		        <div class="invalid-feedback">
+			        <form:errors path="email" />
+			    </div>
+	        </div>
+	        
+	        <br />
+	       
+			<div class="form-group">
+		        <form:label path="username">Username: </form:label>
+		        <form:input class="form-control" path="username"></form:input> 
+		        <div class="invalid-feedback">
+		        	<form:errors path="username"/>
+		        </div>
+	        </div>
+	        
+	        <br />
+	        
+	        <div class="form-group">
+		        <form:label path="password">Password: </form:label>
+		        <form:input class="form-control" path="password"></form:input> 
+		        <div class="invalid-feedback">
+		        	<form:errors path="password" />
+		        </div>
+	        </div>
+	        
+	        <br />
+	     
+	     	<div class="form-group">
+		        <form:label path="passwordConfirmation">Confirm Password: </form:label>
+		        <form:input class="form-control" path="passwordConfirmation"></form:input> 
+		        <div class="invalid-feedback">
+			        <form:errors path="passwordConfirmation" />
+	        	</div>
+	        </div>
+	        
+	        <br />
+	        
+	        <input type="submit" class="btn btn-primary" value="Submit" />
+		</form:form>
+	    	
+    	
+    	<hr />
+	  	<small class="form-text text-muted">Follow us on Social Media | &copy; since 2020 | Published at GCU </small>
+	</body>
 </html>

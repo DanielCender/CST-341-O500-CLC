@@ -40,6 +40,8 @@ public class BookService implements BookServiceInterface {
 						+ y.getISBN() + "', '" 
 						+ y.getPublisher() + "');";
 				
+				this.getConnection();
+				
 				//create SQL statement
 				Statement stmt = this.conn.createStatement();
 				
