@@ -1,23 +1,35 @@
 package com.gcu.models;
 
+import javax.validation.constraints.NotNull;
+
 public class BookModel {
 	
 	//Basic variables for books along with an identification number
-
+	@NotNull
 	private String author;
 	
+	@NotNull
 	private String title;
 	
-	private int bookID;
+	@NotNull
+	private String ISBN;
+	
+	@NotNull
+	private String publisher;
+	
+	@NotNull
+	private int appId;
 	
 	public BookModel() {
-		
+		// Empty initializer
 	}
 	
-	public BookModel(String author, String title, int bookID) {
-		this.setAuthor(author);
-		this.setTitle(title);
-		this.setBookID(bookID);
+	public BookModel(String author, String title, String ISBN, String publisher) {
+		super();
+		this.author = author;
+		this.title = title;
+		this.ISBN = ISBN;
+		this.publisher = publisher;
 	}
 	
 	//Getter and setter's for the variables.
@@ -38,12 +50,28 @@ public class BookModel {
 		this.title = title;
 	}
 
-	public int getBookID() {
-		return bookID;
+	public String getISBN() {
+		return ISBN;
 	}
 
-	public void setBookID(int bookID) {
-		this.bookID = bookID;
+	public void setISBN(String iSBN) {
+		ISBN = iSBN;
+	}
+
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public int getAppId() {
+		return appId;
+	}
+
+	public void setAppId(int appId) {
+		this.appId = appId;
 	}
 	
 	

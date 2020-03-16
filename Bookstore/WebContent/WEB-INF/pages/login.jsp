@@ -3,65 +3,42 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta charset="ISO-8859-1">
-    <title>Login</title>
-    <style>
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            color: white;
-            background-color: lightgray;
-        }
-
-        header {
-            background-color: darkgray;
-            padding: 30px;
-            text-align: center;
-            font-size: 2rem;
-            color: white;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        /* Style the footer */
-        footer {
-            background-color: #777;
-            padding: 10px;
-            text-align: center;
-            color: white;
-        }
-        
-        .error {
-        	color: red;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-
-        Welcome to the Login Page <br><a href="/Bookstore/registerUser">Register</a> | <a href="/Bookstore/">Home</a><br>
-
-    </header>
-
-	<form:form method="POST" action="loginUser" modelAttribute ="loginCModel">
-    <center>
-        <form:label path="email">Email: </form:label> 
-        <form:input path="email"></form:input>
-        <br />
-        <form:label path="password">Password: </form:label> 
-         <form:input path="password"></form:input> 
-          <br/>
-          <form:errors path="*" cssClass="error"/>
-          <br />
-          <input type="submit" value="Submit"/>
-    </center>
-</form:form>
-    <footer>
-        Follow us on Social Media | &copy; since 2020 | Published in GCU
-    </footer>
-</body>
+	<head>
+		<style>
+			form {
+				width: 30%;
+				height: 50%;
+				padding-top: 10px;
+				margin: 40px 35%;	
+			}
+		</style>
+	    <title>Login</title>
+	</head>
+	<body>
+		<%@include file="header.html" %>
+			<form:form method="POST" action="loginUser" modelAttribute ="loginCModel">		    
+		        <div class="form-group">
+			        <form:label path="email">Email: </form:label> 
+			        <form:input class="form-control" path="email"></form:input>
+		        </div>
+		        <br />
+		        <div class="form-group">
+			        <form:label path="password">Password: </form:label> 
+			        <form:input class="form-control" path="password"></form:input> 
+ 			    </div>
+		        <br/>
+		        <div class="invalid-feedback">
+			        <form:errors path="*" />
+		        </div>
+		        <br />
+		        <input class="btn btn-primary" type="submit" value="Submit"/>
+		  	</form:form>
+	  		<br />
+	  		<br />
+	  		<br />
+	  		<br />
+	  	<hr />
+	  	
+	        <small class="form-text text-muted">Follow us on Social Media | &copy; since 2020 | Published at GCU </small>
+	</body>
 </html>
