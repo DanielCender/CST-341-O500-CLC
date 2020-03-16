@@ -1,11 +1,9 @@
-package com.gcu.interfaces;
+package com.gcu.Service.interfaces;
 
-import java.util.List;
 
 import com.gcu.models.BookModel;
 
 public interface BookServiceInterface extends DataInterface<BookModel>{
-
-	public List<BookModel> findByID(int bookID);
 	
+	public BookModel findByID(int ID);
 }

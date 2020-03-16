@@ -1,13 +1,11 @@
-package com.gcu.interfaces;
+package com.gcu.Service.interfaces;
 
-import java.util.List;
-
-import com.gcu.models.BookModel;
+import java.sql.SQLException;
 
 public interface DataInterface<Y> {
 
-	public boolean create(Y y);
-	public boolean update(Y y);
+	public boolean create(Y y) throws SQLException, ClassNotFoundException;
+	public boolean update(Y y) throws SQLException, ClassNotFoundException;
 	
-	public List<BookModel> findByID(int bookID);
+	public Y findByID(int ID);
 }
