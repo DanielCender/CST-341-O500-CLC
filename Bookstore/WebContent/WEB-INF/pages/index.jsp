@@ -20,9 +20,9 @@
     <blockquote>TODO - Maybe some information about the online bookstore</blockquote>
 	</center>
 		
-	<a href="/BookstoreV2/users/loginUser" class="btn btn-primary" id="loginbtn">Login</a>
+	<a href="/Bookstore/users/loginUser" class="btn btn-primary" id="loginbtn">Login</a>
 	
-	<a href="/BookstoreV2/users/registerUser" class="btn btn-primary" id="registerbtn">Register</a>
+	<a href="/Bookstore/users/registerUser" class="btn btn-primary" id="registerbtn">Register</a>
 	
 	<hr />
 	<small class="form-text text-muted">Follow us on Social Media | &copy; since 2020 | Published at GCU </small>
