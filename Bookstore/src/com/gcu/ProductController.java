@@ -26,11 +26,11 @@ BookServiceInterface service;
 	}
 	
 	@RequestMapping(path = "/browse", method=RequestMethod.GET)
-	public String displayBooks() {
-		return "browse";
+	public ModelAndView displayBooks() {
+		return new ModelAndView("addBook", "book", new BookModel());
 	}
 	
-	@RequestMapping(path="/addBook", method=RequestMethod.GET)
+	@RequestMapping(path="/addBook", method=RequestMethod.POST)
 		public ModelAndView addBook(@Valid @ModelAttribute("book")BookModel book, BindingResult result) {
 			
 			ModelAndView mav = new ModelAndView();
