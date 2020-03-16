@@ -5,6 +5,38 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>View Book</title>
+<style>
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            background-color: lightgray;
+        }
+
+        header {
+            background-color: darkgray;
+            padding: 30px;
+            text-align: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        /* Style the footer */
+        footer {
+            background-color: #777;
+            padding: 10px;
+            text-align: center;
+            color: white;
+        }
+        
+        .error {
+        	color: red;
+        }
+    </style>
 </head>
 <body>
 
