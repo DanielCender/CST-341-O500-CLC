@@ -1,6 +1,4 @@
-package com.gcu;
-
-import java.sql.SQLException;
+package com.gcu.controllers;
 
 import javax.validation.Valid;
 
@@ -36,14 +34,7 @@ public class ProductController {
 			
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("book");
-			try {
 			mav.addObject("book", service.create(book));
-			} catch (SQLException | ClassNotFoundException e) {
-				e.printStackTrace();
-				mav.setViewName("addBook");
-			}
-			
-			mav.addObject("book", book);
 			return mav;
 		}
 }

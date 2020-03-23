@@ -1,6 +1,5 @@
-package com.gcu;
+package com.gcu.controllers;
 
-import java.sql.SQLException;
 
 import javax.validation.Valid;
 
@@ -23,14 +22,14 @@ import com.gcu.Service.DataAccessObject;
 @RequestMapping("/users")
 public class UserController {
 	
-	@RequestMapping(path="/registerUser", method=RequestMethod.GET)
+	@RequestMapping(path="/register", method=RequestMethod.GET)
 	public ModelAndView registerUser() {
 		// TODO - Add checks to local session for already logged-in user.
 		// TODO - If current user session is found, redirect user to authed home view or profile
 		return new ModelAndView("register", "userRegistration", new RegisterUserModel());
 	}
 
-	@RequestMapping(path = "/registerUser", method=RequestMethod.POST)
+	@RequestMapping(path = "/register", method=RequestMethod.POST)
 	public ModelAndView registerUser(@ModelAttribute("userRegistration") @Valid RegisterUserModel registration, BindingResult resultUser) {
 		ModelAndView mav = new ModelAndView();
 		DataAccessObject dataService = new DataAccessObject();
@@ -42,7 +41,6 @@ public class UserController {
 			return mav;
 		}
 		
-		try {
 			if(!dataService.isAvailable(registration)) {
 				resultUser.rejectValue("email","error.user", "This email is being used by another account, please choose another email.");
 				registration.setEmail("");
@@ -51,7 +49,7 @@ public class UserController {
 				mav.setViewName("register");
 				return mav;
 			}
-			else {
+			
 				if(registration.getPassword().equals(registration.getPasswordConfirmation())) {
 					dataService.Register(registration);
 					mav.setViewName("redirect:/loginUser");
@@ -65,24 +63,16 @@ public class UserController {
 					mav.addObject("userRegistration", registration);
 					return mav;
 				}
-			}
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		// Return to /register view by default
-		mav.setViewName("register");
-		mav.addObject("userRegistration", registration);
-		return mav;
 	}
 	
-	@RequestMapping(path="/loginUser", method=RequestMethod.GET)
+	@RequestMapping(path="/login", method=RequestMethod.GET)
 	public ModelAndView loginUser() {
 		// TODO - Add checks to local session for already logged-in user.
 		// TODO - If current user session is found, redirect user to authed home view or profile
 		return new ModelAndView("login", "loginCModel", new LoginCModel());
 	}
 	
-	@RequestMapping(path = "/loginUser", method=RequestMethod.POST) 
+	@RequestMapping(path = "/login", method=RequestMethod.POST) 
 	public ModelAndView loginUser(@ModelAttribute("loginCModel") @Valid LoginCModel login, BindingResult resultLogin) {
 		System.out.println("Got to here");
 		ModelAndView mav = new ModelAndView();
@@ -99,11 +89,7 @@ public class UserController {
 		}
 		
 		
-		try {
-			loggedIn = dataService.Login(login.getEmail(), login.getPassword());
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		loggedIn = dataService.Login(login.getEmail(), login.getPassword());
 		System.out.println("Logged in status: " + loggedIn);
 		
 		if(loggedIn) {

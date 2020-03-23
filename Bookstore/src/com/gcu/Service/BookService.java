@@ -2,63 +2,31 @@ package com.gcu.Service;
 
 import com.gcu.Service.interfaces.BookServiceInterface;
 import com.gcu.models.BookModel;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+
+@Component
 public class BookService implements BookServiceInterface {
-
-	private Connection conn = null;
+	private JdbcTemplate jdbcTemplate;
 	
-	private Boolean getConnection() throws SQLException, ClassNotFoundException
-	{
-		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		try
-		{
-			// TODO - Change String below to come from configuration file
-			String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=Bookstore;user=sa;password=Passw0rd1!;"; 
-			
-			this.conn = DriverManager.getConnection(connectionUrl);
-			
-			if (this.conn != null)
-				return true;
-			else return false;
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-			return false;
-		}
+	@Autowired
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		System.out.println("Hello there from DataAccessObject: " + this.jdbcTemplate.toString());
 	}
 	
 	@Override
-	public boolean create(BookModel y) throws SQLException, ClassNotFoundException {
+	public boolean create(BookModel y) {
 		//SQL string to add user to users table
-				String InsertBook = "INSERT INTO [dbo].[Books] (Title, Author, ISBN, Publisher) Values ('" 
-						+ y.getTitle() + "', '"
-						+ y.getAuthor() + "', '"
-						+ y.getISBN() + "', '" 
-						+ y.getPublisher() + "');";
+				String InsertBook = "INSERT INTO [dbo].[Books] (Title, Author, ISBN, Publisher) Values (?,?,?,?);";
 				
-				this.getConnection();
-				
-				//create SQL statement
-				Statement stmt = this.conn.createStatement();
-				
-				//execute update using sql string and save result
-				int rowsEffected = stmt.executeUpdate(InsertBook);
-				
-				//check effected rows if > 0 return true
-				if (rowsEffected > 0)
-				{
-					this.conn.close();
-					return true;
-				}
-				
-				
-				//otherwise return false
-				this.conn.close();
-				return false;
+				int result = jdbcTemplate.update(InsertBook, y.getTitle(), y.getAuthor(), y.getISBN(), y.getPublisher());
+
+				return result > 0;
 	}
 
 	@Override

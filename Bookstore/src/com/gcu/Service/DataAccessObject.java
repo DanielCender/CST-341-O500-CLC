@@ -1,120 +1,58 @@
 package com.gcu.Service;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+
 import com.gcu.models.UserModel;
 
  
-
+@Component
 public class DataAccessObject {
+	private JdbcTemplate jdbcTemplate;
 
-	private Connection conn = null;
-	
-	private Boolean getConnection() throws SQLException, ClassNotFoundException
-	{
-		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		try
-		{
-			// TODO - Change String below to come from configuration file
-			String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=Bookstore;user=sa;password=Passw0rd1!;"; 
-			
-			this.conn = DriverManager.getConnection(connectionUrl);
-			
-			if (this.conn != null)
-				return true;
-			else return false;
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-			return false;
-		}
+	@Autowired
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		System.out.println("Hello there from DataAccessObject: " + this.jdbcTemplate.toString());
 	}
 	
-	public Boolean Login(String Email, String Password) throws SQLException, ClassNotFoundException
+	public Boolean Login(String Email, String Password)
 	{
-		//establish connection to db
-		this.getConnection();
-		
 		//create string for logging in using email and password
-		String LoginString = "SELECT COUNT(*) AS [Count] FROM Users WHERE Email = '" + Email + "' AND Password = '" + Password + "';";
+		String LoginString = "SELECT COUNT(*) AS [Count] FROM Users WHERE Email = ? AND Password = ?;";
 		
-		//create statement
-		Statement stmt = this.conn.createStatement();
-		
-		//execute statement with query string and save that query to result set
-		ResultSet rs = stmt.executeQuery(LoginString);
-		
-		rs.next(); // move to only row
-		Integer rowsEffected = rs.getInt("Count");
-		
+		int rowsEffected = jdbcTemplate.queryForObject(LoginString, Integer.class, Email, Password);
+
 		System.out.println("Rows found: " + rowsEffected);
 		
 		Boolean isAuthed = rowsEffected == 1;
-		
-		this.conn.close();
-				
+
 		return isAuthed;
 	}
 	
-	public Boolean isAvailable(UserModel user) throws SQLException, ClassNotFoundException {
-		this.getConnection();
-		
-		// '" + user.getEmail() + "'
-		String checkExists = "SELECT COUNT(*) AS [Count] from [dbo].[Users] WHERE [Email] = '" + user.getEmail() + "';";
+	public Boolean isAvailable(UserModel user) {
+		String checkExists = "SELECT COUNT(*) AS [Count] from [dbo].[Users] WHERE [Email] = ?;";
 		
 		System.out.println("To be executed: " + checkExists);
-		//create SQL statement
-		Statement stmt = this.conn.createStatement();
-		ResultSet rs = stmt.executeQuery(checkExists);
-			
-		rs.next(); // move to only row
-		Integer rowsEffected = rs.getInt("Count");
-		
+		Integer rowsEffected = jdbcTemplate.queryForObject(checkExists, Integer.class, user.getEmail());
 		System.out.println("Rows found: " + rowsEffected);
 		
 		Boolean isAvailable = rowsEffected == 0;
-		
-		this.conn.close();
 				
 		return isAvailable;
 	}
 	
-	public Boolean Register(UserModel user) throws SQLException, ClassNotFoundException
+	public Boolean Register(UserModel user)
 	{
-		//establish connection to db
-		this.getConnection();
-		
-		//SQL string to add user to users table
-		String InsertUser = "INSERT INTO [dbo].[Users] (FirstName, MiddleInitial, LastName, Username, Password, Email) Values ('" 
-				+ user.getFirstName() + "', '"
-				+ user.getMiddleInitial() + "', '"
-				+ user.getLastName() + "', '" 
-				+ user.getUsername() + "', '"
-				+ user.getPassword() + "', '"
-				+ user.getEmail() + "');";
-		
-		//create SQL statement
-		Statement stmt = this.conn.createStatement();
+		String InsertUser = "INSERT INTO [dbo].[Users] (FirstName, MiddleInitial, LastName, Username, Password, Email) Values (?,?,?,?,?,?);";
 		
 		//execute update using sql string and save result
-		int rowsEffected = stmt.executeUpdate(InsertUser);
-		
-		//check effected rows if > 0 return true
-		if (rowsEffected > 0)
-		{
-			this.conn.close();
-			return true;
-		}
-		
-		
-		//otherwise return false
-		this.conn.close();
-		return false;
-		
+		int result = jdbcTemplate.update(InsertUser, user.getFirstName(), user.getMiddleInitial(), user.getLastName(), user.getUsername(), user.getPassword(), user.getEmail());
+
+		return result > 0;
 	}
 	
 
