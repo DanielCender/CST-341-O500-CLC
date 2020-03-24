@@ -10,17 +10,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gcu.Service.interfaces.BookServiceInterface;
+import com.gcu.business.DataBusinessInterface;
 import com.gcu.models.BookModel;
 
 @Controller
 @RequestMapping("/products")
 public class ProductController {
 	
-	BookServiceInterface service;
+	DataBusinessInterface<BookModel> service;
 	
 	@Autowired
-	public void setBookServiceInterface(BookServiceInterface i) {
+	public void setDataBusinessInterface(DataBusinessInterface<BookModel> i) {
 		service = i;
 	}
 	
@@ -31,10 +31,17 @@ public class ProductController {
 	
 	@RequestMapping(path="/addBook", method=RequestMethod.POST)
 		public ModelAndView addBook(@Valid @ModelAttribute("book")BookModel book, BindingResult result) {
-			
 			ModelAndView mav = new ModelAndView();
-			mav.setViewName("book");
-			mav.addObject("book", service.create(book));
+			boolean successful = service.create(book);
+			
+			if(successful) {
+				mav.setViewName("book");
+				mav.addObject("book", book);				
+			} else {
+				result.rejectValue("title", "error.book", "Book was not created successfully. Please check input.");
+				mav.setViewName("addBook");
+				mav.addObject("book", book);
+			}
 			return mav;
 		}
 }

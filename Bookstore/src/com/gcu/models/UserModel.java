@@ -1,6 +1,5 @@
 package com.gcu.models;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -22,7 +21,7 @@ public class UserModel {
 	@NotNull(message="Password is required") @Size(min=4,max=200,message="Password should be between 4 and 200 characters")
 	private String password;
 	
-	@Email @NotNull(message="Email is required")
+	@NotNull(message="Email is required") @Size(min=4,max=200,message="Password should be between 4 and 200 characters")
 	private String email;
 	
 	/*getters and setters*/
@@ -79,7 +78,7 @@ public class UserModel {
 			@NotNull(message = "Last Name is required") String lastName,
 			@NotNull(message = "Username is required") String username,
 			@NotNull(message = "Password is required") String password,
-			@Email @NotNull(message = "Email is required") String email) {
+			@NotNull(message = "Email is required") String email) {
 		super();
 		this.firstName = firstName;
 		this.middleInitial = middleInitial;

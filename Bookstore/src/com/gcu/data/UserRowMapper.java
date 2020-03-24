@@ -1,4 +1,4 @@
-package com.gcu.Service;
+package com.gcu.data;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

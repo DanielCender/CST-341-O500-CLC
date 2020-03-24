@@ -3,6 +3,8 @@ package com.gcu.controllers;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 // TODO - Figure out persistent user session storage
 //import javax.servlet.http.HttpSession;
 
@@ -15,12 +17,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.gcu.models.UserModel;
 import com.gcu.models.RegisterUserModel;
+import com.gcu.business.UserBusinessInterface;
 import com.gcu.models.LoginCModel;
-import com.gcu.Service.DataAccessObject;
 
 @Controller
 @RequestMapping("/users")
 public class UserController {
+	UserBusinessInterface userService;
+	
+	@Autowired
+	public void setUserBusinessInterface(UserBusinessInterface i) {
+		userService = i;
+	}
 	
 	@RequestMapping(path="/register", method=RequestMethod.GET)
 	public ModelAndView registerUser() {
@@ -32,8 +40,7 @@ public class UserController {
 	@RequestMapping(path = "/register", method=RequestMethod.POST)
 	public ModelAndView registerUser(@ModelAttribute("userRegistration") @Valid RegisterUserModel registration, BindingResult resultUser) {
 		ModelAndView mav = new ModelAndView();
-		DataAccessObject dataService = new DataAccessObject();
-		
+		System.out.println("Has errors in signup: " + resultUser.hasErrors());
 		//Checks to see if there are errors.
 		if(resultUser.hasErrors()) {
 			mav.setViewName("register");
@@ -41,7 +48,7 @@ public class UserController {
 			return mav;
 		}
 		
-			if(!dataService.isAvailable(registration)) {
+			if(!userService.isAvailable(registration)) {
 				resultUser.rejectValue("email","error.user", "This email is being used by another account, please choose another email.");
 				registration.setEmail("");
 				registration.setPasswordConfirmation("");
@@ -51,13 +58,17 @@ public class UserController {
 			}
 			
 				if(registration.getPassword().equals(registration.getPasswordConfirmation())) {
-					dataService.Register(registration);
+					// TODO - remove these console logs
+					System.out.println("About to register");
+					boolean res = userService.Register(registration);
+					System.out.println("Just registered user, result: " + res);
 					mav.setViewName("redirect:/loginUser");
 					return mav;
 				}
 				else {
 					resultUser.rejectValue("passwordConfirmation", "error.user", "The passwords do not match.");
 					// Display registration page again
+					System.out.println("Rejecting sign up values...");
 					registration.setPasswordConfirmation("");
 					mav.setViewName("registration");
 					mav.addObject("userRegistration", registration);
@@ -76,7 +87,6 @@ public class UserController {
 	public ModelAndView loginUser(@ModelAttribute("loginCModel") @Valid LoginCModel login, BindingResult resultLogin) {
 		System.out.println("Got to here");
 		ModelAndView mav = new ModelAndView();
-		DataAccessObject dataService = new DataAccessObject();
 		Boolean loggedIn = false;
 		
 		mav.addObject("user", new UserModel());
@@ -89,11 +99,11 @@ public class UserController {
 		}
 		
 		
-		loggedIn = dataService.Login(login.getEmail(), login.getPassword());
+		loggedIn = userService.Login(login.getEmail(), login.getPassword());
 		System.out.println("Logged in status: " + loggedIn);
 		
 		if(loggedIn) {
-			mav.setViewName("redirect:/browse");
+			mav.setViewName("redirect:/");
 			return mav;			
 		}
 		resultLogin.rejectValue("email", "error.user", "Invalid email and password combination, please try again.");

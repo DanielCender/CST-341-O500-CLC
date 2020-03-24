@@ -1,7 +1,8 @@
-package com.gcu.Service;
+package com.gcu.data;
 
-import com.gcu.Service.interfaces.BookServiceInterface;
 import com.gcu.models.BookModel;
+
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -10,7 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BookService implements BookServiceInterface {
+public class BookService implements DataInterface<BookModel> {
 	private JdbcTemplate jdbcTemplate;
 	
 	@Autowired
@@ -41,6 +42,18 @@ public class BookService implements BookServiceInterface {
 	public BookModel findByID(int ID) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public List<BookModel> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean delete(BookModel y) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }
