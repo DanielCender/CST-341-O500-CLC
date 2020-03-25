@@ -17,7 +17,6 @@ public class BookService implements DataInterface<BookModel> {
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
-		System.out.println("Hello there from DataAccessObject: " + this.jdbcTemplate.toString());
 	}
 	
 	@Override
