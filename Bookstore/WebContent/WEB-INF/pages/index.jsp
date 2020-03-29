@@ -17,12 +17,12 @@
 <body>
   <%@include file="header.html"%>
 	<center>
-    <blockquote>TODO - Maybe some information about the online bookstore</blockquote>
+    <blockquote>Welcome to the GCU Computer Science Online Book Store</blockquote>
 	</center>
 		
-	<a href="/Bookstore/users/loginUser" class="btn btn-primary" id="loginbtn">Login</a>
+	<a href="/Bookstore/users/login" class="btn btn-primary" id="loginbtn">Login</a>
 	
-	<a href="/Bookstore/users/registerUser" class="btn btn-primary" id="registerbtn">Register</a>
+	<a href="/Bookstore/users/register" class="btn btn-primary" id="registerbtn">Register</a>
 	
 	<hr />
 	<small class="form-text text-muted">Follow us on Social Media | &copy; since 2020 | Published at GCU </small>

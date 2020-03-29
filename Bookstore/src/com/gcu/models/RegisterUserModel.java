@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class RegisterUserModel extends UserModel {
-	@NotNull @Size(min=6,max=20,message="Password confirmation must be between 6 and 20 chars")
+	@NotNull @Size(min=6,max=200,message="Password confirmation must be between 6 and 200 chars")
 	private String passwordConfirmation;
 	
 	public RegisterUserModel() {

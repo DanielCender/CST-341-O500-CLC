@@ -15,7 +15,7 @@
 </head>
 	<body>
 		<%@include file="header.html" %>
-		<form:form method="POST" action="registerUser" modelAttribute ="userRegistration">
+		<form:form method="POST" action="register" modelAttribute ="userRegistration">
 
 	    	<div class="form-group">
 		        <form:label path="firstName">First Name: </form:label>
