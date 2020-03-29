@@ -6,19 +6,19 @@ import javax.validation.constraints.Size;
 
 public class UserModel {
 
-	@NotNull(message="First Name is required") @Max(value=200,message="First name should be 200 characters at most")
+	@NotNull(message="First Name is required") @Size(min=1,max=200,message="First Name should be between 1 and 200 characters")
 	private String firstName;
 	
-	@NotNull(message="Middle Initial is required") @Size(min=1,max=2,message="First name should be 1 or 2 characters")
+	@NotNull(message="Middle Initial is required") @Size(min=1,max=2,message="Middle Initial should be 1 or 2 characters")
 	private String middleInitial;
 	
-	@NotNull(message="Last Name is required") @Max(value=200,message="Last name should be 200 characters at most")
+	@NotNull(message="Last Name is required") @Size(min=1,max=200,message="Last Name should be between 1 and 200 characters")
 	private String lastName;	
 	
 	@NotNull(message="Username is required") @Size(min=3,max=20,message="Username should be between 3 and 20 characters")
 	private String username;
 	
-	@NotNull(message="Password is required") @Size(min=4,max=200,message="Password should be between 4 and 200 characters")
+	@NotNull(message="Password is required") @Size(min=6,max=200,message="Password should be between 6 and 200 characters")
 	private String password;
 	
 	@NotNull(message="Email is required") @Size(min=4,max=200,message="Password should be between 4 and 200 characters")

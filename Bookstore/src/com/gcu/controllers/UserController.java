@@ -41,6 +41,7 @@ public class UserController {
 	public ModelAndView registerUser(@ModelAttribute("userRegistration") @Valid RegisterUserModel registration, BindingResult resultUser) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("Has errors in signup: " + resultUser.hasErrors());
+		System.out.println("Signup errors: " + resultUser.getAllErrors().toString());
 		//Checks to see if there are errors.
 		if(resultUser.hasErrors()) {
 			mav.setViewName("register");
@@ -49,7 +50,7 @@ public class UserController {
 		}
 		
 			if(!userService.isAvailable(registration)) {
-				resultUser.rejectValue("email","error.user", "This email is being used by another account, please choose another email.");
+				resultUser.rejectValue("email","error", "This email is being used by another account, please choose another email.");
 				registration.setEmail("");
 				registration.setPasswordConfirmation("");
 				mav.addObject("userRegistration", registration);
@@ -62,7 +63,7 @@ public class UserController {
 					System.out.println("About to register");
 					boolean res = userService.Register(registration);
 					System.out.println("Just registered user, result: " + res);
-					mav.setViewName("redirect:/loginUser");
+					mav.setViewName("redirect:/users/login");
 					return mav;
 				}
 				else {
