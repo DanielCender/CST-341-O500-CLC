@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import com.gcu.models.RegisterUserModel;
 import com.gcu.models.UserModel;
 
- 
 @Component
 public class DataAccessObject implements UserDataInterface {
 	private JdbcTemplate jdbcTemplate;
@@ -20,42 +19,47 @@ public class DataAccessObject implements UserDataInterface {
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
-	
+
 	@Override
-	public boolean Login(String Email, String Password)
-	{
-		//create string for logging in using email and password
-		String LoginString = "SELECT COUNT(*) AS [Count] FROM Users WHERE Email = ? AND Password = ?;";
-		
+	public boolean Login(String Email, String Password) {
+		// create string for logging in using email and password
+		String LoginString = "SELECT COUNT (DISTINCT UserID) AS Count FROM GCU.Users WHERE Email = ? AND Password = ?";
+		// String LoginString = "SELECT COUNT(*) AS [Count] FROM Users WHERE Email = ?
+		// AND Password = ?;";
+
 		int rowsEffected = jdbcTemplate.queryForObject(LoginString, Integer.class, Email, Password);
 
 		System.out.println("Rows found: " + rowsEffected);
-		
+
 		Boolean isAuthed = rowsEffected == 1;
 
 		return isAuthed;
 	}
-	
+
 	@Override
 	public boolean isAvailable(RegisterUserModel user) {
-		String checkExists = "SELECT COUNT(*) AS [Count] from [dbo].[Users] WHERE [Email] = ?;";
-		
+		String checkExists = "SELECT COUNT (DISTINCT UserID) AS Count from GCU.Users WHERE [Email] = ?";
+		// String checkExists = "SELECT COUNT(*) AS [Count] from [dbo].[Users] WHERE
+		// [Email] = ?;";
+
 		System.out.println("To be executed: " + checkExists);
 		Integer rowsEffected = jdbcTemplate.queryForObject(checkExists, Integer.class, user.getEmail());
 		System.out.println("Rows found: " + rowsEffected);
-		
+
 		Boolean isAvailable = rowsEffected == 0;
-				
+
 		return isAvailable;
 	}
-	
+
 	@Override
-	public boolean Register(RegisterUserModel user)
-	{
-		String InsertUser = "INSERT INTO [dbo].[Users] (FirstName, MiddleInitial, LastName, Username, Password, Email) Values (?,?,?,?,?,?);";
-		
-		//execute update using sql string and save result
-		int result = jdbcTemplate.update(InsertUser, user.getFirstName(), user.getMiddleInitial(), user.getLastName(), user.getUsername(), user.getPassword(), user.getEmail());
+	public boolean Register(RegisterUserModel user) {
+		String InsertUser = "INSERT INTO GCU.Users (FirstName, MiddleInitial, LastName, Username, Password, Email) Values (?,?,?,?,?,?)";
+		// String InsertUser = "INSERT INTO [dbo].[Users] (FirstName, MiddleInitial,
+		// LastName, Username, Password, Email) Values (?,?,?,?,?,?);";
+
+		// execute update using sql string and save result
+		int result = jdbcTemplate.update(InsertUser, user.getFirstName(), user.getMiddleInitial(), user.getLastName(),
+				user.getUsername(), user.getPassword(), user.getEmail());
 
 		return result > 0;
 	}
