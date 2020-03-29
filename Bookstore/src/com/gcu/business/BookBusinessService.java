@@ -29,5 +29,17 @@ public class BookBusinessService implements DataBusinessInterface<BookModel> {
 	public boolean create(BookModel t) {
 		return service.create(t);
 	}
+
+	@Override
+	public boolean update(BookModel t) {
+		// TODO Auto-generated method stub
+		return service.update(t);
+	}
+
+	@Override
+	public boolean delete(BookModel t) {
+		// TODO Auto-generated method stub
+		return service.delete(t);
+	}
 	
 }

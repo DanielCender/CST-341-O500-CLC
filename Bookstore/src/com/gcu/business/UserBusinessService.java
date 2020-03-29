@@ -45,4 +45,16 @@ public class UserBusinessService implements UserBusinessInterface {
 	public boolean isAvailable(RegisterUserModel registration) {
 		return service.isAvailable(registration);
 	}
+
+	@Override
+	public boolean update(UserModel t) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean delete(UserModel t) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

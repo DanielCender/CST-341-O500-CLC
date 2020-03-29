@@ -1,5 +1,7 @@
 package com.gcu.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,50 @@ public class ProductController {
 	@Autowired
 	public void setDataBusinessInterface(DataBusinessInterface<BookModel> i) {
 		service = i;
+	}
+	
+	@RequestMapping(value="/displayAll")
+    public ModelAndView displayAll(){
+        ModelAndView mav = new ModelAndView("DisplayAll") ;
+        List<BookModel> bookForms = service.getAll();
+        mav.addObject("bookForms", bookForms);  
+        return mav;
+    }
+	
+	@RequestMapping(path = "/Update", method=RequestMethod.POST)
+	public ModelAndView Update(@Valid @ModelAttribute("book")BookModel book, BindingResult result) {
+	
+		ModelAndView mav = new ModelAndView();
+		boolean successful = service.update(book);
+		
+		if(successful) {
+			mav.setViewName("book");
+			mav.addObject("book", book);				
+		} else {
+			result.rejectValue("title", "error.book", "Book was not updating successfully. Please check input.");
+			mav.setViewName("addBook");
+			mav.addObject("book", book);
+		}
+		return mav;
+		
+	}
+	
+	@RequestMapping(path = "/delete", method=RequestMethod.POST)
+	public ModelAndView Delete(@Valid @ModelAttribute("book")BookModel book, BindingResult result) {
+		
+		ModelAndView mav = new ModelAndView();
+		boolean successful = service.delete(book);
+		
+		if(successful) {
+			mav.setViewName("book");
+			mav.addObject("book", book);				
+		} else {
+			result.rejectValue("title", "error.book", "Book was not deleted successfully. Please check input.");
+			mav.setViewName("deleteBook");
+			mav.addObject("book", book);
+		}
+		return mav;
+		
 	}
 	
 	@RequestMapping(path = "/add", method=RequestMethod.GET)
