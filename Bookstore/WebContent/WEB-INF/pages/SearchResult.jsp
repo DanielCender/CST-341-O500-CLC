@@ -39,7 +39,7 @@
 
     <header>
 
-        Welcome to the Search Page <br><a href="/Bookstore/loginUser">Login</a>| <a href="/Bookstore/">Home</a>|<br><a href="/Bookstore/registerUser">Register</a><br> | <a href="/Bookstore/Search">Search</a>
+        Welcome to the Search Page <br><a href="/Bookstore/login">Login</a>| <a href="/Bookstore/">Home</a>|<br><a href="/Bookstore/register">Register</a><br> | <a href="/Bookstore/Search">Search</a>
       
     </header>
 <form:form method="Get" action="" modelAttribute ="">

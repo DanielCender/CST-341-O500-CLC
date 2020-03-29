@@ -16,7 +16,7 @@
 	</head>
 	<body>
 		<%@include file="header.html" %>
-			<form:form method="POST" action="loginUser" modelAttribute ="loginCModel">		    
+			<form:form method="POST" action="login" modelAttribute ="loginCModel">		    
 		        <div class="form-group">
 			        <form:label path="email">Email: </form:label> 
 			        <form:input class="form-control" path="email"></form:input>
