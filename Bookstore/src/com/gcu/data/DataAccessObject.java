@@ -38,7 +38,7 @@ public class DataAccessObject implements UserDataInterface {
 
 	@Override
 	public boolean isAvailable(RegisterUserModel user) {
-		String checkExists = "SELECT COUNT (DISTINCT UserID) AS Count from GCU.Users WHERE [Email] = ?";
+		String checkExists = "SELECT COUNT (DISTINCT UserID) AS Count from GCU.Users WHERE Email = ?";
 		// String checkExists = "SELECT COUNT(*) AS [Count] from [dbo].[Users] WHERE
 		// [Email] = ?;";
 

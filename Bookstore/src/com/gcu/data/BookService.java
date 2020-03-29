@@ -24,7 +24,7 @@ public class BookService implements DataInterface<BookModel> {
 		// SQL string to add user to users table
 		// String InsertBook = "INSERT INTO [dbo].[Books] (Title, Author, ISBN,
 		// Publisher) Values (?,?,?,?);";
-		String InsertBook = "INSERT INTO GCU.Books (Title, Author, ISBN, Publisher) Values (?,?,?,?);";
+		String InsertBook = "INSERT INTO GCU.Books (Title, Author, ISBN, Publisher) Values (?,?,?,?)";
 
 		int result = jdbcTemplate.update(InsertBook, y.getTitle(), y.getAuthor(), y.getISBN(), y.getPublisher());
 
