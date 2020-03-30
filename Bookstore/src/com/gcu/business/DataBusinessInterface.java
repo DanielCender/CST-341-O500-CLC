@@ -8,5 +8,6 @@ public interface DataBusinessInterface<T> {
 	public List<T> getAll();	
 	public T findById(int id);
 	public boolean create(T t);
-	// TODO - here is where the update/delete additions will go
+	public boolean update(T t);
+	public boolean delete(int id);
 }

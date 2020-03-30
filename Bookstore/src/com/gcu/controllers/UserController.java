@@ -59,17 +59,13 @@ public class UserController {
 			}
 			
 				if(registration.getPassword().equals(registration.getPasswordConfirmation())) {
-					// TODO - remove these console logs
-					System.out.println("About to register");
 					boolean res = userService.Register(registration);
-					System.out.println("Just registered user, result: " + res);
 					mav.setViewName("redirect:/users/login");
 					return mav;
 				}
 				else {
 					resultUser.rejectValue("passwordConfirmation", "error.user", "The passwords do not match.");
 					// Display registration page again
-					System.out.println("Rejecting sign up values...");
 					registration.setPasswordConfirmation("");
 					mav.setViewName("registration");
 					mav.addObject("userRegistration", registration);
@@ -86,7 +82,6 @@ public class UserController {
 	
 	@RequestMapping(path = "/login", method=RequestMethod.POST) 
 	public ModelAndView loginUser(@ModelAttribute("loginCModel") @Valid LoginCModel login, BindingResult resultLogin) {
-		System.out.println("Got to here");
 		ModelAndView mav = new ModelAndView();
 		Boolean loggedIn = false;
 		
@@ -101,14 +96,12 @@ public class UserController {
 		
 		
 		loggedIn = userService.Login(login.getEmail(), login.getPassword());
-		System.out.println("Logged in status: " + loggedIn);
 		
 		if(loggedIn) {
 			mav.setViewName("redirect:/");
 			return mav;			
 		}
 		resultLogin.rejectValue("email", "error.user", "Invalid email and password combination, please try again.");
-//		resultLogin.rejectValue("passwordConfirmation", "error.user", "The passwords do not match.");
 		mav.setViewName("login");
 		mav.addObject("login", login);
 		return mav;
