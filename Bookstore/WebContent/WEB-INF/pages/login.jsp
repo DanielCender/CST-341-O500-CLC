@@ -3,19 +3,10 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<head>
-		<style>
-			form {
-				width: 30%;
-				height: 50%;
-				padding-top: 10px;
-				margin: 40px 35%;	
-			}
-		</style>
-	    <title>Login</title>
-	</head>
-	<body>
-		<%@include file="header.html" %>
+<jsp:include page="../fragments/header.jsp" />
+<body>
+
+<jsp:include page="../fragments/nav.jsp" />
 			<form:form method="POST" action="login" modelAttribute ="loginCModel">		    
 		        <div class="form-group">
 			        <form:label path="email">Email: </form:label> 
@@ -37,8 +28,7 @@
 	  		<br />
 	  		<br />
 	  		<br />
-	  	<hr />
-	  	
-	        <small class="form-text text-muted">Follow us on Social Media | &copy; since 2020 | Published at GCU </small>
+	  		
+	  		<jsp:include page="../fragments/footer.jsp"/>
 	</body>
 </html>

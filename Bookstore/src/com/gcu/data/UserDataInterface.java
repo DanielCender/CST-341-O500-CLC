@@ -8,7 +8,7 @@ import com.gcu.models.UserModel;
 public interface UserDataInterface extends DataInterface<UserModel> {
 	public boolean create(UserModel y);
 	public boolean update(UserModel y);
-	public boolean delete(UserModel y);
+	public boolean delete(int id);
 	public UserModel findByID(int ID);
 	public List<UserModel> findAll();
 	public boolean Register(RegisterUserModel registration);

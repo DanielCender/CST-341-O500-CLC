@@ -53,13 +53,13 @@ public class DataAccessObject implements UserDataInterface {
 
 	@Override
 	public boolean Register(RegisterUserModel user) {
-		String InsertUser = "INSERT INTO GCU.Users (FirstName, MiddleInitial, LastName, Username, Password, Email) Values (?,?,?,?,?,?)";
+		String InsertUser = "INSERT INTO GCU.Users (Email, Password, FirstName, MiddleInitial, LastName, Username) Values (?,?,?,?,?,?)";
 		// String InsertUser = "INSERT INTO [dbo].[Users] (FirstName, MiddleInitial,
 		// LastName, Username, Password, Email) Values (?,?,?,?,?,?);";
 
 		// execute update using sql string and save result
-		int result = jdbcTemplate.update(InsertUser, user.getFirstName(), user.getMiddleInitial(), user.getLastName(),
-				user.getUsername(), user.getPassword(), user.getEmail());
+		int result = jdbcTemplate.update(InsertUser, user.getEmail(), user.getPassword(), user.getFirstName(), user.getMiddleInitial(), user.getLastName(),
+				user.getUsername());
 
 		return result > 0;
 	}
@@ -77,7 +77,7 @@ public class DataAccessObject implements UserDataInterface {
 	}
 
 	@Override
-	public boolean delete(UserModel y) {
+	public boolean delete(int id) {
 		// TODO Auto-generated method stub
 		return false;
 	}
