@@ -7,8 +7,11 @@
 <body>
 
 <jsp:include page="../fragments/nav.jsp" />
-		<form:form method="POST" action="register" modelAttribute ="userRegistration">
 
+<div class="container">
+<div class="row">
+<div class="col-md-6 offset-md-3">
+		<form:form method="POST" action="register" modelAttribute ="userRegistration">
 	    	<div class="form-group">
 		        <form:label path="firstName">First Name: </form:label>
 		        <form:input class="form-control" path="firstName"></form:input> 
@@ -16,9 +19,6 @@
 			        <form:errors path="firstName" />
 			    </div>
 		    </div>
-	        
-	        <br />
-	        
 	        <div class="form-group">
 		        <form:label path="middleInitial">Middle Initial: </form:label>
 	        	<form:input class="form-control" path="middleInitial"></form:input> 
@@ -26,9 +26,6 @@
 	        		<form:errors path="middleInitial" />
 	        	</div>
 	        </div>
-	        
-	        <br />
-	        
 	        <div class="form-group">
 		        <form:label path="lastName">Last Name: </form:label> 
 		        <form:input class="form-control" path="lastName"></form:input> 
@@ -36,9 +33,6 @@
 		        	<form:errors path="lastName" />
 		        </div>
 	        </div>
-	        
-	        <br />
-	        
 	        <div class="form-group">
 		        <form:label path="email">Email: </form:label>
 		        <form:input class="form-control" path="email"></form:input> 
@@ -46,9 +40,6 @@
 			        <form:errors path="email" />
 			    </div>
 	        </div>
-	        
-	        <br />
-	       
 			<div class="form-group">
 		        <form:label path="username">Username: </form:label>
 		        <form:input class="form-control" path="username"></form:input> 
@@ -56,9 +47,6 @@
 		        	<form:errors path="username"/>
 		        </div>
 	        </div>
-	        
-	        <br />
-	        
 	        <div class="form-group">
 		        <form:label path="password">Password: </form:label>
 		        <form:input class="form-control" path="password"></form:input> 
@@ -66,9 +54,6 @@
 		        	<form:errors path="password" />
 		        </div>
 	        </div>
-	        
-	        <br />
-	     
 	     	<div class="form-group">
 		        <form:label path="passwordConfirmation">Confirm Password: </form:label>
 		        <form:input class="form-control" path="passwordConfirmation"></form:input> 
@@ -76,13 +61,12 @@
 			        <form:errors path="passwordConfirmation" />
 	        	</div>
 	        </div>
-	        
-	        <br />
-	        
 	        <input type="submit" class="btn btn-primary" value="Submit" />
 		</form:form>
 	    	
-    	
+</div>
+</div>
+</div>
     	<jsp:include page="../fragments/footer.jsp"/>
 	</body>
 </html>

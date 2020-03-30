@@ -7,28 +7,27 @@
 <body>
 
 <jsp:include page="../fragments/nav.jsp" />
+
+<div class="container">
+<div class="row">
+<div class="col-md-6 offset-md-3">
 			<form:form method="POST" action="login" modelAttribute ="loginCModel">		    
 		        <div class="form-group">
 			        <form:label path="email">Email: </form:label> 
 			        <form:input class="form-control" path="email"></form:input>
 		        </div>
-		        <br />
 		        <div class="form-group">
 			        <form:label path="password">Password: </form:label> 
 			        <form:input class="form-control" path="password"></form:input> 
  			    </div>
-		        <br/>
 		        <div class="invalid-feedback">
 			        <form:errors path="*" />
 		        </div>
-		        <br />
 		        <input class="btn btn-primary" type="submit" value="Submit"/>
 		  	</form:form>
-	  		<br />
-	  		<br />
-	  		<br />
-	  		<br />
-	  		
-	  		<jsp:include page="../fragments/footer.jsp"/>
+</div>
+	</div>
+	</div>
+<jsp:include page="../fragments/footer.jsp"/>
 	</body>
 </html>
