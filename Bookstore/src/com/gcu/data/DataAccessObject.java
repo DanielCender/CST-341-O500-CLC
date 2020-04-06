@@ -23,7 +23,7 @@ public class DataAccessObject implements UserDataInterface {
 	@Override
 	public boolean Login(String Email, String Password) {
 		// create string for logging in using email and password
-		String LoginString = "SELECT COUNT (DISTINCT UserID) AS Count FROM GCU.Users WHERE Email = ? AND Password = ?";
+		String LoginString = "SELECT COUNT (DISTINCT Email) AS Count FROM GCU.Users WHERE Email = ? AND Password = ?";
 
 		int rowsEffected = jdbcTemplate.queryForObject(LoginString, Integer.class, Email, Password);
 
@@ -36,7 +36,7 @@ public class DataAccessObject implements UserDataInterface {
 
 	@Override
 	public boolean isAvailable(RegisterUserModel user) {
-		String checkExists = "SELECT COUNT (DISTINCT UserID) AS Count from GCU.Users WHERE Email = ?";
+		String checkExists = "SELECT COUNT (DISTINCT Email) AS Count from GCU.Users WHERE Email = ?";
 
 		System.out.println("To be executed: " + checkExists);
 		Integer rowsEffected = jdbcTemplate.queryForObject(checkExists, Integer.class, user.getEmail());

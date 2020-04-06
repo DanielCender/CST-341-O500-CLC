@@ -12,4 +12,9 @@ public class BaseController {
 	public String index() {
 		return "index";
 	}
+	
+	@RequestMapping(path="/about", method=RequestMethod.GET) 
+	public String about() {
+		return "about";
+	}
 }
