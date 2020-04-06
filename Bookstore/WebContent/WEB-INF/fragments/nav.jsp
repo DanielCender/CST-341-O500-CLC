@@ -21,6 +21,9 @@
       <li class="nav-item active">
       	<a class="nav-link" href="/Bookstore/products/displayAll">Browse All</a>
       </li>
+       <li class="nav-item active">
+      	<a class="nav-link" href="/Bookstore/about">About</a>
+      </li>
     </ul>
   </div>
 </nav>
