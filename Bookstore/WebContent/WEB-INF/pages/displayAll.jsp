@@ -8,24 +8,22 @@
 <html>
 
 <head>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<title>All Books</title>
 	<script>
-		$(document).on('click', '.btn', function () {
-			var book = $(this).data('bookdata');
-			$('modal-body #booktitle').val(book);
+		$(document).on('click', '.btn', function() {
+			var title = $(this).attr('data-title');
+			var author = $(this).attr('data-author');
+			var publisher = $(this).attr('data-publisher');			
+			var isbn = $(this).attr('data-isbn');
 			
-		})	
+			$('.modal').find('#booktitle').val(title);
+			$('.modal').find('#bookauthor').val(author);
+			$('.modal').find('#bookpublisher').val(publisher);
+			$('.modal').find('#bookisbn').val(isbn);
+		})     	
 	
 	
-		$('#bookModal').on('show.bs.modal', function (event) {
-			  var button = $(event.relatedTarget) // Button that triggered the modal
-			  var book = button.data('book') // Extract info from data-* attributes
-			  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-			  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-			  var modal = $(this)
-			  modal.find('.modal-title').text('Test');
-			  modal.find('.modal-body input').val(recipient)
-			})
 	</script>
 </head>
 
@@ -45,18 +43,19 @@
 			<div class="card text-center" style="width: 18rem;">
 			  	<div class="card-body">
 			    	<h5 class="card-title">${book.title}</h5>
-			    	<button class="btn btn-primary" data-toggle="modal" type="button" data-target="#bookModal" data-bookdata="book">Test Modal</button>
+			    	<button id="${book.title}" class="btn btn-primary bookButton" data-toggle="modal" type="button" data-target="#bookModal" 
+			    		data-title="${book.title}" 
+			    		data-author="${book.author}"
+			    		data-publisher="${book.publisher}"
+			    		data-isbn="${book.ISBN}">
+			    			Details
+			    		</button>
 			 	</div>
 			</div>	
 		</div>
 	</c:forEach>
 	</div>
 </div>	
-
-
-<jsp:include page="../fragments/footer.jsp"/>
-</body>
-
 
 
 <!-- MODAL CODE -->
@@ -77,23 +76,29 @@
         </button>
       </div>
       <div class="modal-body">
-      	<h5 id="bookTitle"></h5>
-      		<strong>Title:</strong>
-        
+        <strong>Title:</strong><input class="form-control" type="text" name="booktitle" id="booktitle" value=""/>
+      	<br/><hr/>
+      	<strong>Author:</strong><input class="form-control" type="text" name="bookauthor" id="bookauthor" value=""/>
         <br/><hr/>
-        <div id="bookAuthor">
-        	<strong>Author:</strong>${book.author}
-        </div>
+        <strong>Publisher:</strong><input class="form-control" type="text" name="bookpublisher" id="bookpublisher" value=""/>
         <br/><hr/>
+        <strong>ISBN:</strong><input class="form-control" type="text" name="bookisbn" id="bookisbn" value=""/>
         <br> 
       </div>
       <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
 </div>
+
+
+<jsp:include page="../fragments/footer.jsp"/>
+</body>
+
+
+
+
 
 </html>
 
