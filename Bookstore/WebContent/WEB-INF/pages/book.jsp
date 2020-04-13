@@ -6,34 +6,31 @@
 <body>
 
 <jsp:include page="../fragments/nav.jsp" />
-<center>
+
+<div class="container">
 <h3>Book Details:</h3>
-<table>
-	<!-- <tr>
+<hr />
+<div class="row table-responsive">
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
 			<th>Title</th>
 			<th>Author</th>
 			<th>ISBN</th>
 			<th>Publisher</th>
-			<th>Action</th>
-		</tr> -->
+		</tr>
+	</thead>
+	<tbody>
 	<tr>
-		<th>Title:</th>
 		<td>${book.title}</td>
-	</tr>
-	<tr>
-		<th>Author:</th>
 		<td>${book.author}</td>
-	</tr>
-	<tr>
-		<th>ISBN:</th>
 		<td>${book.ISBN}</td>
-	</tr>
-	<tr>
-		<th>Publisher:</th>
 		<td>${book.publisher}</td>
 	</tr>
+	</tbody>
 </table>
-</center>
+</div>
+</div>
 
 <jsp:include page="../fragments/footer.jsp"/>
 </body>
