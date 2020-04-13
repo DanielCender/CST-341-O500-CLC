@@ -5,19 +5,21 @@
 <jsp:include page="../fragments/header.jsp" />
 <body>
 <jsp:include page="../fragments/nav.jsp" />
-	<center>
-    <blockquote>About the GCU Computer Science Online Book Store</blockquote>
-		
-	<p>This application is a simple Java Spring MVC product built by the class of CST-341-O500</p>
-	<p>The contributors to this project are below:</p>
+	<div class="container">
 	
-	<ul style="list-style-type:none;">
-		<li><a href="https://github.com/DanielCender" target="_blank">Daniel Cender</a></li>
-		<li><a href="https://github.com/dpj7217" target="_blank">David Pratt Jr</a></li>
-		<li><a href="https://github.com/ZSwoveland" target="_blank">Zachary Swoveland</a></li>
-		<li><a href="https://github.com/Konikurash" target="_blank">Tyler Rosenberry</a></li>
+    <h2>About the GCU Computer Science Online Book Store</h2>
+		<hr />
+		
+	<h5>This application is a simple Java Spring MVC product built by the class of CST-341-O500</h5>
+	<h5>The contributors to this project are below:</h5>
+	
+	<ul class="list-group list-group-flush">
+		<li  class="list-group-item"><a href="https://github.com/DanielCender" target="_blank">Daniel Cender</a></li>
+		<li  class="list-group-item"><a href="https://github.com/dpj7217" target="_blank">David Pratt Jr</a></li>
+		<li  class="list-group-item"><a href="https://github.com/ZSwoveland" target="_blank">Zachary Swoveland</a></li>
+		<li  class="list-group-item"><a href="https://github.com/Konikurash" target="_blank">Tyler Rosenberry</a></li>
 	</ul>
-	</center>
+	</div>
 <jsp:include page="../fragments/footer.jsp"/>
 </body>
 </html>

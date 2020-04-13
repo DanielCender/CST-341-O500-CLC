@@ -8,35 +8,40 @@
 
 <jsp:include page="../fragments/nav.jsp" />
 
-  <center>
+
+  <div class="container">
 <h3>Update Book Entry</h3>
+<hr />
 
 <form:form method="POST" action="update" modelAttribute ="book">
-  
+ 	<div class="form-group">
         <form:label path="title">Title: </form:label>
-         <form:input path="title" value="${book.title}"></form:input> 
+         <form:input path="title" class="form-control" value="${book.title}"></form:input> 
         <form:errors path="title" />
-        <br />
+        </div>
+        <div class="form-group">
          <form:label path="author">Author: </form:label>
-          <form:input path="author" value="${book.author}"></form:input> 
+          <form:input path="author" class="form-control" value="${book.author}"></form:input> 
           <form:errors path="author" />
-        <br />
+        </div>
+        <div class="form-group">
         <form:label path="ISBN">ISBN: </form:label> 
-         <form:input path="ISBN" value="${book.ISBN}"></form:input> 
+         <form:input path="ISBN" class="form-control" value="${book.ISBN}"></form:input> 
          <form:errors path="ISBN" />
-        <br />
+        </div>
+        <div class="form-group">
         <form:label path="publisher">Publisher: </form:label>
-         <form:input path="publisher" value="${book.publisher}"></form:input> 
+         <form:input path="publisher" class="form-control" value="${book.publisher}"></form:input> 
          <form:errors path="publisher" />
-        <br />
-        <form:hidden path="appId" value="${book.appId}"></form:hidden>
-        
+        </div>
+
+        <form:hidden path="appId" value="${book.appId}"></form:hidden>        
         <form:errors path="*" cssClass="error"/>
-        <br />
-        <input type="submit" value="Submit" />
+        
+        <input type="submit" class="btn btn-primary" value="Submit" />
 
 </form:form>
-</center>
+</div>
  
 <jsp:include page="../fragments/footer.jsp"/>
 </body>
