@@ -9,29 +9,31 @@
 <jsp:include page="../fragments/nav.jsp" />
 
 <div class="container">
-<div class="row">
-<div class="col-md-6 offset-md-3">
+	<h3>User Registration</h3>
+<hr/>
 		<form:form method="POST" action="register" modelAttribute ="userRegistration">
-	    	<div class="form-group">
-		        <form:label path="firstName">First Name: </form:label>
-		        <form:input class="form-control" path="firstName"></form:input> 
+			<div class="form-row">
+	    	<div class="form-group col-md-5">
+		        <form:label path="firstName" for="inputFirstName">First Name: </form:label>
+		        <form:input class="form-control" id="inputFirstName" path="firstName"></form:input> 
 		        <div class="invalid-feedback">
 			        <form:errors path="firstName" />
 			    </div>
 		    </div>
-	        <div class="form-group">
-		        <form:label path="middleInitial">Middle Initial: </form:label>
-	        	<form:input class="form-control" path="middleInitial"></form:input> 
+	        <div class="form-group col-md-2">
+		        <form:label path="middleInitial" for="inputMiddleName">Middle Initial: </form:label>
+	        	<form:input class="form-control" id="inputMiddleName"  path="middleInitial"></form:input> 
 	        	<div class="invalid-feedback">
 	        		<form:errors path="middleInitial" />
 	        	</div>
 	        </div>
-	        <div class="form-group">
-		        <form:label path="lastName">Last Name: </form:label> 
-		        <form:input class="form-control" path="lastName"></form:input> 
+	        <div class="form-group col-md-5">
+		        <form:label path="lastName" for="inputLastName">Last Name: </form:label> 
+		        <form:input class="form-control" id="inputLastName" path="lastName"></form:input> 
 		        <div class="invalid-feedback">
 		        	<form:errors path="lastName" />
 		        </div>
+	        </div>
 	        </div>
 	        <div class="form-group">
 		        <form:label path="email">Email: </form:label>
@@ -63,9 +65,6 @@
 	        </div>
 	        <input type="submit" class="btn btn-primary" value="Submit" />
 		</form:form>
-	    	
-</div>
-</div>
 </div>
     	<jsp:include page="../fragments/footer.jsp"/>
 	</body>

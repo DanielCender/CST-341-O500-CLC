@@ -10,8 +10,8 @@
 
 
  <div class="container">
-<div class="row">
-<div class="col-md-6 offset-md-3">
+	<h3>Add Book</h3>
+<hr/>
 <form:form method="POST" action="addBook" modelAttribute ="book">
 	 <div class="form-group">
         <form:label path="title">Title: </form:label>
@@ -38,8 +38,6 @@
         </div>
          <input class="btn btn-primary" type="submit" value="Submit"/>
 </form:form>
-</div>
-</div>
 </div>
 <jsp:include page="../fragments/footer.jsp"/>
 </body>

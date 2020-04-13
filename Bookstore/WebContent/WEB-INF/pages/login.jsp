@@ -9,6 +9,8 @@
 <jsp:include page="../fragments/nav.jsp" />
 
 <div class="container">
+<h3>Login</h3>
+<hr />
 <div class="row">
 <div class="col-md-6 offset-md-3">
 			<form:form method="POST" action="login" modelAttribute ="loginCModel">		    
